@@ -75,8 +75,10 @@ public class Window extends JPanel{
         for (Unit u :
                 units) {
             g.setColor(u.getImg());
+            System.out.println(u.getPos());
+            System.out.println(map[u.getPos().x][u.getPos().y]);
             Point2D p = map[u.getPos().x][u.getPos().y].getCenter();
-            g.fillOval((int)p.getX(), (int)p.getY(),UNITSIZE,UNITSIZE);
+            g.fillOval((int)p.getX()-UNITSIZE/2, (int)p.getY()-UNITSIZE/2,UNITSIZE,UNITSIZE);
         }
         g.setColor(Color.BLACK);
     }
@@ -101,6 +103,7 @@ public class Window extends JPanel{
     }
 
     private void paintHexes(Graphics g) {
+        g.setColor(Color.BLACK);
         for (Hexagon[] hexRow:map
              ) {
             for (Hexagon h:hexRow

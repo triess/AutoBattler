@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args){
-        IronMan im = new IronMan(1,new Point(1,1));
+        IronMan im = new IronMan(0,new Point(0,0));
         Window w = new Window();
         w.addUnit(im);
         createFrame(w);
@@ -18,7 +18,5 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        Graphics g =frame.getGraphics();
-        w.update(g);
     }
 }
