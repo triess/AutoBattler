@@ -1,5 +1,6 @@
 package Game.Units;
 
+import Game.Window;
 import Game.util.UnitStrategy;
 
 import java.awt.*;
@@ -33,8 +34,8 @@ public class IronMan extends Unit {
     private void flee() {
         int x = pos.x;
         int y = pos.y;
-        x = (x+1)%9;
-        y= (y+1)%7;
+        x = (x+1)% Window.MAP_HEIGHT;
+        y = (y+1)%Window.MAP_WIDTH;
         pos.setLocation(x,y);
     }
 
