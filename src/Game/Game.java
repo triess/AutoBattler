@@ -6,14 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
+
+    private static final Game instance = new Game();
+    private Game(){}
+    public static Game getInstance(){
+        return instance;
+    }
     public List<Unit> getUnits() {
         return units;
     }
-
     List<Unit> units = new ArrayList<>();
-    public Game(){
-
-    }
 
     public void advance(){
         updateUnits();
