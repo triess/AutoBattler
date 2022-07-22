@@ -7,6 +7,16 @@ import java.awt.*;
 public abstract class Unit {
     private int unitID;
     private int objectID;
+
+    public boolean isTeam() {
+        return team;
+    }
+
+    public void setTeam(boolean team) {
+        this.team = team;
+    }
+
+    private boolean team;
     String name;
     int hp;
     int atk;

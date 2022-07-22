@@ -20,6 +20,7 @@ public class Main {
         Window w = setupWindow(frame);
         setupFrame(frame,w);
         IronMan im = new IronMan(0,new Point(1,2));
+        im.setTeam(true);
         Game.getInstance().addUnit(im);
     }
 

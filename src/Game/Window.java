@@ -112,7 +112,11 @@ public class Window extends JPanel{
                 game.getUnits()) {
             g.setColor(u.getImg());
             Point2D p = map[u.getPos().x][u.getPos().y].getCenter();
-            g.fillOval((int)p.getX()-UNITSIZE/2, (int)p.getY()-UNITSIZE/2,UNITSIZE,UNITSIZE);
+            if(u.isTeam()) {
+                g.fillOval((int) p.getX() - UNITSIZE / 2, (int) p.getY() - UNITSIZE / 2, UNITSIZE, UNITSIZE);
+            }else{
+                g.fillRect((int) p.getX() - UNITSIZE / 2, (int) p.getY() - UNITSIZE / 2, UNITSIZE, UNITSIZE);
+            }
         }
         g.setColor(Color.BLACK);
     }
