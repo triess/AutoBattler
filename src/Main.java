@@ -1,6 +1,7 @@
 import Game.Game;
 import Game.Units.IronMan;
 import Game.Window;
+import Game.util.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,6 @@ import java.awt.event.MouseEvent;
 
 public class Main {
     public static void main(String[] args){
-
         createFrame();
     }
 
@@ -20,8 +20,7 @@ public class Main {
         Window w = setupWindow(frame);
         setupFrame(frame,w);
         IronMan im = new IronMan(0,new Point(1,2));
-        im.setTeam(true);
-        Game.getInstance().addUnit(im);
+        Game.getInstance().addUnit(im,0);
     }
 
     private static void setupFrame(JFrame frame,Window w) {
@@ -39,20 +38,21 @@ public class Main {
         frame.add(button);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.pack();
-        frame.setSize(1200,900);
+        frame.setSize(1777,1000);
         frame.repaint();
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 
     private static Window setupWindow(JFrame frame) {
-        Window w = new Window(Game.getInstance());
+        Window w = new Window();
         w.setBounds(w.getBattlefieldBounds());
         w.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 Point p = new Point(e.getX(),e.getY());
                 Point clicked = w.toHexCoords(p);
                 IronMan i = new IronMan(0,clicked);
-                Game.getInstance().addUnit(i);
+                Game.getInstance().addUnit(i,1);
                 frame.repaint();
             }
         });

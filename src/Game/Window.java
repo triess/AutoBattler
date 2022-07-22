@@ -1,34 +1,30 @@
 package Game;
 
-import Game.Units.IronMan;
 import Game.Units.Unit;
 import Game.util.Hexagon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Window extends JPanel{
 
     private Point lastPoint;
-    private final int HEXSIZE = 50;
-    private final int UNITSIZE = 30;
+    private final int HEX_SIZE = 70;
+    private final int UNIT_SIZE = 50;
+    private final int HEALTH_LENGTH = 60;
+    private final int HEALTH_HEIGHT = 4;
     public static final int MAP_HEIGHT = 7;
     public static final int MAP_WIDTH = 9;
     private final Hexagon[][] map = new Hexagon[MAP_HEIGHT][MAP_WIDTH];
-    private final Point TOP_LEFT = new Point(60,60);
-    private Game game;
+    private final Point TOP_LEFT = new Point(80,80);
 
-    public int getHEXSIZE() {
-        return HEXSIZE;
+    public int getHEX_SIZE() {
+        return HEX_SIZE;
     }
 
-    public int getUNITSIZE() {
-        return UNITSIZE;
+    public int getUNIT_SIZE() {
+        return UNIT_SIZE;
     }
 
     public Rectangle getBattlefieldBounds() {
@@ -38,20 +34,19 @@ public class Window extends JPanel{
     private Rectangle battlefieldBounds = new Rectangle();
 
 
-    public Window(Game g){
-        game=g;
-        Hexagon firstHex = new Hexagon(TOP_LEFT.x,TOP_LEFT.y,HEXSIZE);
+    public Window(){
+        Hexagon firstHex = new Hexagon(TOP_LEFT.x,TOP_LEFT.y, HEX_SIZE);
         Hexagon currentHex = firstHex;
         map[0][0] = firstHex;
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 1; j < MAP_WIDTH; j++) {
-                Hexagon h = new Hexagon(0,0,HEXSIZE);
+                Hexagon h = new Hexagon(0,0, HEX_SIZE);
                 currentHex.attach(h, Hexagon.Direction.East);
                 map[i][j] = h;
                 currentHex = h;
             }
             if (i!= MAP_HEIGHT-1) {
-                Hexagon h = new Hexagon(0,0,HEXSIZE);
+                Hexagon h = new Hexagon(0,0, HEX_SIZE);
                 if (i%2==0) {
                     firstHex.attach(h, Hexagon.Direction.SouthEast);
                 }else {
@@ -64,7 +59,7 @@ public class Window extends JPanel{
         }
         battlefieldBounds.setLocation(map[0][0].getBounds().getLocation());
         int height = map[MAP_HEIGHT-1][0].getBounds().y+map[MAP_HEIGHT-1][0].getBounds().height+1;
-        int width = map[1][MAP_WIDTH-1].getBounds().x+map[1][MAP_WIDTH-1].getBounds().width+1;
+        int width = map[1][MAP_WIDTH-1].getBounds().x+map[1][MAP_WIDTH-1].getBounds().width+3;
         battlefieldBounds.setSize(width,height);
 
         /*
@@ -109,14 +104,21 @@ public class Window extends JPanel{
 
     private void paintUnits(Graphics g) {
         for (Unit u :
-                game.getUnits()) {
+                Game.getInstance().getUnits()) {
             g.setColor(u.getImg());
             Point2D p = map[u.getPos().x][u.getPos().y].getCenter();
-            if(u.isTeam()) {
-                g.fillOval((int) p.getX() - UNITSIZE / 2, (int) p.getY() - UNITSIZE / 2, UNITSIZE, UNITSIZE);
+            Point place = new Point((int) p.getX() - UNIT_SIZE / 2,(int) p.getY() - UNIT_SIZE / 2);
+            if(u.getTeam()==0) {
+                g.fillOval(place.x, place.y, UNIT_SIZE, UNIT_SIZE);
             }else{
-                g.fillRect((int) p.getX() - UNITSIZE / 2, (int) p.getY() - UNITSIZE / 2, UNITSIZE, UNITSIZE);
+                g.fillRect(place.x, place.y, UNIT_SIZE, UNIT_SIZE);
             }
+            place.translate((UNIT_SIZE-HEALTH_LENGTH)/2,UNIT_SIZE+1);
+            int l = Math.round(u.getHpPercent()*HEALTH_LENGTH);
+            g.setColor(Color.GREEN);
+            g.fillRect(place.x,place.y,l, HEALTH_HEIGHT);
+            g.setColor(Color.RED);
+            g.fillRect(place.x+l, place.y, HEALTH_LENGTH-l,HEALTH_HEIGHT);
         }
         g.setColor(Color.BLACK);
     }

@@ -1,7 +1,9 @@
 package Game.Units;
 
+import Game.Game;
 import Game.Window;
 import Game.util.UnitStrategy;
+import Game.util.Utils;
 
 import java.awt.*;
 
@@ -16,19 +18,21 @@ public class IronMan extends Unit {
 
     @Override
     public void act() {
-        UnitStrategy s = getStrategy();
-        switch (s){
-            case defense:
+        int d = 1000;
+        Point target=null;
+        Game g = Game.getInstance();
+        for (Unit u:
+        g.getTeam(g.getOpponent(this.getTeam()))) {
+            if (Utils.isInRange(u.getPos(),this.getPos(),this.range)){
+                u.takeDamage(this.atk);
                 return;
-            case offense:
-                return;
-            case dodge:
-                flee();
-            case random:
-                return;
-            case balanced:
-                return;
+            }
+            if(Utils.hexDistance(u.pos,this.pos)<d){
+                d=Utils.hexDistance(u.pos,this.pos);
+                target = u.pos;
+            }
         }
+        this.pos=Utils.NSteps(this.pos,target,this.speed);
     }
 
     private void flee() {
@@ -42,11 +46,14 @@ public class IronMan extends Unit {
     @Override
     public void loadStats() {
         name = "Iron Man";
-        hp = 10;
+        hp = 12;
+        maxHp = 12;
         atk = 3;
-        def = 4;
+        def = 2;
         tier = 3;
-        img = Color.RED;
+        speed = 1;
+        range = 2;
+        img = Color.CYAN;
         us = getDefaultStrategy();
     }
 

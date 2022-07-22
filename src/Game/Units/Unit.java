@@ -7,21 +7,15 @@ import java.awt.*;
 public abstract class Unit {
     private int unitID;
     private int objectID;
-
-    public boolean isTeam() {
-        return team;
-    }
-
-    public void setTeam(boolean team) {
-        this.team = team;
-    }
-
-    private boolean team;
+    private int team;
     String name;
     int hp;
+    int maxHp;
     int atk;
     int def;
     int tier;
+    int speed;
+    int range;
     Point pos;
     Color img;
     UnitStrategy us;
@@ -69,6 +63,25 @@ public abstract class Unit {
 
     public int getHp() {
         return hp;
+    }
+    public void takeDamage(int dmg) {
+        if(dmg-def<=0)return;
+        this.hp -= dmg-def;
+    }
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public float getHpPercent(){
+        float f = (float)hp/(float)maxHp;
+        return f;
+    }
+    public int getTeam() {
+        return team;
+    }
+
+    public void setTeam(int team) {
+        this.team = team;
     }
 
     public int getAtk() {

@@ -21,6 +21,9 @@ public class Utils {
         int x = c[2]+y/2;
         return new Point(x,y);
     }
+    public static boolean isInRange(Point p1, Point p2, int range){
+        return hexDistance(p1,p2)<=range;
+    }
     public static int hexDistance(Point p1,Point p2){
         int s1 = p1.x + (p1.y+1)/2;
         int s2 = p2.x + (p2.y+1)/2;
