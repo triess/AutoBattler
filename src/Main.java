@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class Main {
     public static void main(String[] args){
@@ -33,9 +36,35 @@ public class Main {
                 frame.repaint();
             }
         });
+        JButton button1 = new JButton("Connect");
+        JButton button2 = new JButton("Message");
+        JTextField textField = new JTextField("ip");
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    InetAddress ip = InetAddress.getByName(textField.getText());
+                    System.out.println("connection exists");
+                    System.out.println(ip.isReachable(5000));
+                } catch (UnknownHostException ex) {
+                    System.out.println("error converting ip");
+                    System.out.println(ex);
+                } catch (IOException ex) {
+                    System.out.println("error connecting");
+                    System.out.println(ex);
+                }
+            }
+        });
+
+        button1.setBounds(button.getX()+120,button.getY(),button.getWidth(),button.getHeight());
+        button2.setBounds(button1.getX()+120,button1.getY(),button1.getWidth(),button1.getHeight());
+        textField.setBounds(button2.getX()+120,button2.getY(),button2.getWidth(),button2.getHeight());
         frame.setLayout(null);
         frame.add(w);
         frame.add(button);
+        frame.add(button2);
+        frame.add(button1);
+        frame.add(textField);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.pack();
         frame.setSize(1777,1000);
