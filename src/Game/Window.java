@@ -105,13 +105,12 @@ public class Window extends JPanel{
     private void paintUnits(Graphics g) {
         for (Unit u :
                 Game.getInstance().getUnits()) {
-            g.setColor(u.getImg());
             Point2D p = map[u.getPos().x][u.getPos().y].getCenter();
             Point place = new Point((int) p.getX() - UNIT_SIZE / 2,(int) p.getY() - UNIT_SIZE / 2);
             if(u.getTeam()==0) {
-                g.fillOval(place.x, place.y, UNIT_SIZE, UNIT_SIZE);
+                g.drawImage(u.getImg(),place.x, place.y, null);
             }else{
-                g.fillRect(place.x, place.y, UNIT_SIZE, UNIT_SIZE);
+                g.drawImage(u.getImg(),place.x, place.y, null);
             }
             place.translate((UNIT_SIZE-HEALTH_LENGTH)/2,UNIT_SIZE+1);
             int l = Math.round(u.getHpPercent()*HEALTH_LENGTH);

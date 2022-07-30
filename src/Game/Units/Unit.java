@@ -17,7 +17,7 @@ public abstract class Unit {
     int speed;
     int range;
     Point pos;
-    Color img;
+    Image img;
     UnitStrategy us;
     private static int nextObjectID;
 
@@ -67,6 +67,7 @@ public abstract class Unit {
     public void takeDamage(int dmg) {
         if(dmg-def<=0)return;
         this.hp -= dmg-def;
+        if(this.hp<0)this.hp=0;
     }
     public int getMaxHp() {
         return maxHp;
@@ -96,7 +97,7 @@ public abstract class Unit {
         return tier;
     }
 
-    public Color getImg() {
+    public Image getImg() {
         return img;
     }
 

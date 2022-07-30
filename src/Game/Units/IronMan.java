@@ -5,7 +5,11 @@ import Game.Window;
 import Game.util.UnitStrategy;
 import Game.util.Utils;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class IronMan extends Unit {
     public IronMan(int id) {
@@ -53,7 +57,11 @@ public class IronMan extends Unit {
         tier = 3;
         speed = 1;
         range = 2;
-        img = Color.CYAN;
+        try {
+            img = ImageIO.read(new File("res/units/IronMan.png"));
+        } catch (IOException ignored) {
+
+        }
         us = getDefaultStrategy();
     }
 
