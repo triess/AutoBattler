@@ -1,6 +1,7 @@
 import Game.Game;
 import Game.Units.IronMan;
 import Game.Window;
+import Game.Player;
 import Game.util.Utils;
 
 import javax.swing.*;
@@ -45,7 +46,10 @@ public class Main {
                 try{
                     InetAddress ip = InetAddress.getByName(textField.getText());
                     System.out.println("connection exists");
-                    System.out.println(ip.isReachable(5000));
+                    if(ip.isReachable(5000)){
+                        Player p = new Player(ip);
+                    }
+
                 } catch (UnknownHostException ex) {
                     System.out.println("error converting ip");
                     System.out.println(ex);
