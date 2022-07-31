@@ -1,14 +1,12 @@
 package Server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class Server implements Serializable {
     private int nextPlayerID=0;
+    private static final long serialVersionUID = 1L;
 
     public static void main(String[] args){
         try {
@@ -17,6 +15,7 @@ public class Server {
             Socket s = ss.accept();
             ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
             oos.writeObject(server);
+            oos.flush();
             //DataInputStream dis = new DataInputStream(s.getInputStream());
             //String str = (String)dis.readUTF();
             //System.out.println(str);
