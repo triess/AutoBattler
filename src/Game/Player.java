@@ -26,6 +26,7 @@ public class Player {
             System.out.println("yes");
         } catch (IOException | ClassNotFoundException ignored) {
             System.out.println("no");
+            System.out.println(ignored);
         }
     }
 

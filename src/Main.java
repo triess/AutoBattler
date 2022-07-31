@@ -39,7 +39,7 @@ public class Main {
         });
         JButton button1 = new JButton("Connect");
         JButton button2 = new JButton("Message");
-        JTextField textField = new JTextField("ip");
+        JTextField textField = new JTextField("192.168.1.104");
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
